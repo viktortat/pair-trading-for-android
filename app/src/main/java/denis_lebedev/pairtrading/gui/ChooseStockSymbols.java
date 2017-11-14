@@ -47,11 +47,8 @@ public class ChooseStockSymbols extends AppCompatActivity {
     }
 
     public void addButtonClick(View view){
-        System.out.println("HELLLOOOOOO!");
         String symbol = symbolText.getText().toString();
-        System.out.println("We got text!");
         adapter.add(symbol);
-        System.out.println("OOOOOOOOOPS!");
     }
 
     public void removeButtonClick(View view){
@@ -61,10 +58,5 @@ public class ChooseStockSymbols extends AppCompatActivity {
 
     public void clearButtonClick(View view){
         adapter.clear();
-    }
-
-    public void fuckingclick(View v)
-    {
-        System.out.println("fuckingclick!");
     }
 }
