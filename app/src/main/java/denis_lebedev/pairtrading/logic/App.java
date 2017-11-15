@@ -25,7 +25,6 @@ SOFTWARE.
 package denis_lebedev.pairtrading.logic;
 
 
-import java.util.Calendar;
 import java.util.List;
 
 public class App {
@@ -38,13 +37,13 @@ public class App {
 
     }
 
-    public void calculate(String[] symbols, Calendar startDate, Calendar endDate, double balance){
+    public void calculate(AppInputData data){
 
+        List<FinancialPair> financialPairs = FinancialPair.createMany(null);
 
-        List<FinancialPair> financialPairs = FinancialPair.CreateMany(null);
-
-        RiskManager rm = new RiskManager(financialPairs, balance);
+        RiskManager rm = new RiskManager(financialPairs, data.balance);
         rm.calculate();
 
     }
 }
+

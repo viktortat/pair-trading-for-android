@@ -51,19 +51,19 @@ public class FinancialPair {
         X = x;
         Y = y;
 
-        SetRegression(x.getPrices(), y.getPrices());
-        SetValues(X.getPrices(), Y.getPrices());
+        setRegression(x.getPrices(), y.getPrices());
+        setValues(X.getPrices(), Y.getPrices());
 
         X.setDeviation(MathUtils.getStandardDeviation(x.getPrices()));
         Y.setDeviation(MathUtils.getStandardDeviation(y.getPrices()));
     }
 
-    protected void SetRegression(double[] x, double[] y)
+    protected void setRegression(double[] x, double[] y)
     {
         Regression = MathUtils.calculateRegression(x, y);
     }
 
-    protected void SetValues(double[] x, double[] y) {
+    protected void setValues(double[] x, double[] y) {
 
         int size = x.length;
         DeltaValues = new double[size];
@@ -80,7 +80,7 @@ public class FinancialPair {
         }
     }
 
-    public static List<FinancialPair> CreateMany(List<Stock> stocks) {
+    public static List<FinancialPair> createMany(List<Stock> stocks) {
 
         List<FinancialPair> pairs = new ArrayList<FinancialPair>();
 
