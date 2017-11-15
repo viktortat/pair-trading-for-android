@@ -7,18 +7,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import denis_lebedev.pairtrading.R;
+import denis_lebedev.pairtrading.logic.App;
 
 public class ChooseStockSymbols extends AppCompatActivity {
 
     private ArrayAdapter<String> adapter;
     private EditText symbolText;
     private ListView listView;
-    private ArrayList<String> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +37,22 @@ public class ChooseStockSymbols extends AppCompatActivity {
 
         symbolText = (EditText)findViewById(R.id.symbolText);
 
-        String[] values = new String[] { "GOOG", "XOM", "JPM", "BP" };
-
-
+        ArrayList<String> symbols = App.getInstance().getSymbols().get();
 
         adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, list);
+                android.R.layout.simple_list_item_1, symbols);
 
         listView.setAdapter(adapter);
     }
 
     public void addButtonClick(View view){
         String symbol = symbolText.getText().toString();
-        adapter.add(symbol);
+
+        if(adapter.getPosition(symbol) == -1) {
+            adapter.add(symbol);
+        }else {
+            Toast.makeText(this, "This symbol allready added.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void removeButtonClick(View view){
