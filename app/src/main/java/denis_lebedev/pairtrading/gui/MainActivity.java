@@ -7,19 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import denis_lebedev.pairtrading.R;
 import denis_lebedev.pairtrading.logic.DateUtils;
-import denis_lebedev.pairtrading.logic.MyApplication;
 import denis_lebedev.pairtrading.logic.SessionItem;
 
 public class MainActivity extends AppCompatActivity {
-
-    private MyApplication myApp = MyApplication.getInstance();
 
     private SessionItem sessionItem = new SessionItem();
 

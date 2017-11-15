@@ -37,10 +37,9 @@ public class ChooseStockSymbols extends AppCompatActivity {
 
         symbolText = (EditText)findViewById(R.id.symbolText);
 
-        ArrayList<String> symbols = App.getInstance().getSymbols().get();
 
         adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, symbols);
+                android.R.layout.simple_list_item_1, new String[]{});
 
         listView.setAdapter(adapter);
     }

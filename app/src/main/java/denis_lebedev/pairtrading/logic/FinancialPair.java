@@ -80,7 +80,7 @@ public class FinancialPair {
         }
     }
 
-    public static List<FinancialPair> CreateMany(List<Stock> stocks) throws CloneNotSupportedException {
+    public static List<FinancialPair> CreateMany(List<Stock> stocks) {
 
         List<FinancialPair> pairs = new ArrayList<FinancialPair>();
 
@@ -88,8 +88,15 @@ public class FinancialPair {
         {
             for (int j = i + 1; j < stocks.size(); j++)
             {
-                Stock x = stocks.get(i).clone();
-                Stock y = stocks.get(j).clone();
+                Stock x = null;
+                Stock y = null;
+
+                try {
+                    x = stocks.get(i).clone();
+                    y = stocks.get(j).clone();
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
 
                 pairs.add(new FinancialPair(x, y));
             }
