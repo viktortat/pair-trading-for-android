@@ -14,17 +14,22 @@ import java.util.StringTokenizer;
 
 import denis_lebedev.pairtrading.R;
 import denis_lebedev.pairtrading.logic.App;
+import denis_lebedev.pairtrading.logic.SelectedSymbols;
 
 public class ChooseStockSymbols extends AppCompatActivity {
 
     private ArrayAdapter<String> adapter;
     private EditText symbolText;
     private ListView listView;
+    private SelectedSymbols selectedSymbols = new SelectedSymbols();
+    private String path = "/symbols.dat";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_symbols);
+
+        selectedSymbols.read(getPath());
 
         listView = (ListView)findViewById(R.id.symbolsList);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -39,16 +44,29 @@ public class ChooseStockSymbols extends AppCompatActivity {
 
 
         adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, new String[]{});
+                android.R.layout.simple_list_item_1, selectedSymbols.getSymbols());
 
         listView.setAdapter(adapter);
+    }
+
+    private String getPath(){
+        return this.getApplicationContext().getFilesDir().getPath() + path;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        System.out.println("SAAAAAAAAAAAAAVWEE!!!!!!!!!!!");
     }
 
     public void addButtonClick(View view){
         String symbol = symbolText.getText().toString();
 
-        if(adapter.getPosition(symbol) == -1) {
+        if(adapter.getPosition(symbol) == -1 && !symbol.equals("")) {
             adapter.add(symbol);
+            symbolText.setText("");
+            selectedSymbols.save(getPath());
         }else {
             Toast.makeText(this, "This symbol allready added.", Toast.LENGTH_SHORT).show();
         }
