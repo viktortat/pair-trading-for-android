@@ -39,7 +39,9 @@ public class App {
 
     public void calculate(AppInputData data){
 
-        List<FinancialPair> financialPairs = FinancialPair.createMany(null);
+        List<Stock> stocks = downloader.downloadAll(data.symbols, data.startDate, data.endDate);
+
+        List<FinancialPair> financialPairs = FinancialPair.createMany(stocks);
 
         RiskManager rm = new RiskManager(financialPairs, data.balance);
         rm.calculate();

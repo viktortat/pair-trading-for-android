@@ -53,6 +53,18 @@ public class GoogleFinanceDownloader implements StockDataDownloader {
         return executePost(request, "");
     }
 
+    @Override
+    public ArrayList<Stock> downloadAll(String[] symbols, Calendar startDate, Calendar endDate) {
+        ArrayList<Stock> stocks = new ArrayList<>();
+        for(String symbol : symbols){
+            ArrayList<Quote> quotes = download(symbol, startDate, endDate);
+            Stock stock = new Stock();
+            stock.setQuotes(quotes);
+            stocks.add(stock);
+        }
+        return stocks;
+    }
+
     String createRequestString(String symbol, Calendar startDate, Calendar endDate){
         String result = "https://finance.google.com/finance/historical?q=";
         result += symbol;

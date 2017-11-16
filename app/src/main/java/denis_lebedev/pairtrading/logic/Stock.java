@@ -26,9 +26,11 @@ SOFTWARE.
 package denis_lebedev.pairtrading.logic;
 
 
+import java.util.ArrayList;
+
 public class Stock implements Cloneable {
     private String name;
-    private double[] prices;
+    private ArrayList<Quote> quotes;
     private double deviation;
     private double tradeVolume;
     private double weight;
@@ -37,13 +39,21 @@ public class Stock implements Cloneable {
 
     }
 
-    public Stock(String name, double[] prices, double deviation,
+    public Stock(String name, ArrayList<Quote> quotes, double deviation,
                  double tradeVolume, double weight){
         this.name = name;
-        this.prices = prices;
+        this.quotes = quotes;
         this.deviation = deviation;
         this.tradeVolume = tradeVolume;
         this.weight = weight;
+    }
+
+    public double[] getPrices(){
+        double[] prices = new double[quotes.size()];
+        for(int i = 0; i > prices.length; i++){
+            prices[i] = quotes.get(i).getPrice();
+        }
+        return prices;
     }
 
     public String getName() {
@@ -54,12 +64,12 @@ public class Stock implements Cloneable {
         this.name = name;
     }
 
-    public double[] getPrices() {
-        return prices;
+    public ArrayList<Quote> getQuotes() {
+        return quotes;
     }
 
-    public void setPrices(double[] prices) {
-        this.prices = prices;
+    public void setQuotes(ArrayList<Quote> quotes) {
+        this.quotes = quotes;
     }
 
     public double getDeviation() {
