@@ -22,28 +22,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package denis_lebedev.pairtrading.logic;
+package denis_lebedev.pairtrading.gui;
 
+import android.app.Activity;
+import android.os.Bundle;
 
-import java.util.List;
+import denis_lebedev.pairtrading.R;
 
-public class App {
+public class ResultItemActivity extends Activity {
 
-    private StockDataDownloader downloader;
-
-    public App(){
-        downloader = new GoogleFinanceDownloader();
-    }
-
-    public AppResultData calculate(AppInputData data){
-
-        List<Stock> stocks = downloader.downloadAll(data.symbols, data.startDate, data.endDate);
-
-        List<FinancialPair> financialPairs = FinancialPair.createMany(stocks);
-
-        RiskManager rm = new RiskManager(financialPairs, data.balance);
-        rm.calculate();
-
-        return new AppResultData(financialPairs);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_result_item);
     }
 }

@@ -22,28 +22,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
+
 package denis_lebedev.pairtrading.logic;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class App {
+public class AppResultData {
 
-    private StockDataDownloader downloader;
+    private static int id;
+    private ArrayList<AppResultData> resultDatas = new ArrayList<>();
 
-    public App(){
-        downloader = new GoogleFinanceDownloader();
+    public AppResultData(List<FinancialPair> pairs){
+        id++;
+
     }
 
-    public AppResultData calculate(AppInputData data){
+    public int getId(){
+        return id;
+    }
 
-        List<Stock> stocks = downloader.downloadAll(data.symbols, data.startDate, data.endDate);
-
-        List<FinancialPair> financialPairs = FinancialPair.createMany(stocks);
-
-        RiskManager rm = new RiskManager(financialPairs, data.balance);
-        rm.calculate();
-
-        return new AppResultData(financialPairs);
+    public ArrayList<AppResultData> getResultDatas() {
+        return resultDatas;
     }
 }

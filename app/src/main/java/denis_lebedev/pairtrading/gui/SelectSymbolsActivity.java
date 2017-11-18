@@ -1,3 +1,27 @@
+/*
+MIT License
+
+Copyright (c) 2017 Denis Lebedev
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+ */
+
 package denis_lebedev.pairtrading.gui;
 
 import android.support.v7.app.AppCompatActivity;
@@ -16,13 +40,12 @@ import denis_lebedev.pairtrading.R;
 import denis_lebedev.pairtrading.logic.App;
 import denis_lebedev.pairtrading.logic.SelectedSymbols;
 
-public class ChooseStockSymbols extends AppCompatActivity {
+public class SelectSymbolsActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> adapter;
     private EditText symbolText;
     private ListView listView;
     private SelectedSymbols selectedSymbols = new SelectedSymbols();
-    private String path = "/symbols.dat";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +53,8 @@ public class ChooseStockSymbols extends AppCompatActivity {
         setContentView(R.layout.activity_select_symbols);
 
         selectedSymbols.read(getPath());
+
+        symbolText = (EditText)findViewById(R.id.symbolText);
 
         listView = (ListView)findViewById(R.id.symbolsList);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -39,34 +64,32 @@ public class ChooseStockSymbols extends AppCompatActivity {
                 symbolText.setText(text);
             }
         });
-
-        symbolText = (EditText)findViewById(R.id.symbolText);
-
-
-        adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, selectedSymbols.getSymbols());
-
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+                selectedSymbols.getSymbols());
         listView.setAdapter(adapter);
     }
 
     private String getPath(){
+        String path = "/symbols.dat";
         return this.getApplicationContext().getFilesDir().getPath() + path;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        System.out.println("SAAAAAAAAAAAAAVWEE!!!!!!!!!!!");
+    public void onStop() {
+        super.onStop();
+        selectedSymbols.save(getPath());
     }
 
     public void addButtonClick(View view){
         String symbol = symbolText.getText().toString();
 
-        if(adapter.getPosition(symbol) == -1 && !symbol.equals("")) {
+        if(!symbol.equals("")){
+            return;
+        }
+
+        if(adapter.getPosition(symbol) == -1) {
             adapter.add(symbol);
             symbolText.setText("");
-            selectedSymbols.save(getPath());
         }else {
             Toast.makeText(this, "This symbol allready added.", Toast.LENGTH_SHORT).show();
         }

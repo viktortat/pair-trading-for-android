@@ -15,8 +15,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".gui.ChooseStockSymbols" />
-        <activity android:name=".gui.ResultsTable"></activity>
+        <activity android:name=".gui.SelectSymbolsActivity" />
+        <activity android:name=".gui.ResultsActivity" />
+        <activity android:name=".gui.ResultItemActivity"></activity>
     </application>
 
 </manifest>

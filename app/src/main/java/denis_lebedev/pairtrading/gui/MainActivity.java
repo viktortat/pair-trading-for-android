@@ -1,3 +1,27 @@
+/*
+MIT License
+
+Copyright (c) 2017 Denis Lebedev
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+ */
+
 package denis_lebedev.pairtrading.gui;
 
 import android.app.DatePickerDialog;
@@ -11,12 +35,14 @@ import android.widget.EditText;
 import java.util.Calendar;
 
 import denis_lebedev.pairtrading.R;
+import denis_lebedev.pairtrading.logic.App;
+import denis_lebedev.pairtrading.logic.AppInputData;
+import denis_lebedev.pairtrading.logic.AppResultData;
 import denis_lebedev.pairtrading.logic.DateUtils;
-import denis_lebedev.pairtrading.logic.SessionItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SessionItem sessionItem = new SessionItem();
+    private AppInputData inputData = new AppInputData();
 
     private EditText balanceTxt;
     private EditText riskTxt;
@@ -35,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startSelectSymbols(View view){
-        Intent intent = new Intent(this, ChooseStockSymbols.class);
+        Intent intent = new Intent(this, SelectSymbolsActivity.class);
         startActivity(intent);
     }
 
@@ -53,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener firstDateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-            sessionItem.firstDate = DateUtils.getDateFromDatePicker(datePicker);
+            inputData.startDate = DateUtils.getDateFromDatePicker(datePicker);
         }
     };
 
@@ -70,18 +96,18 @@ public class MainActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener lastDateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-            sessionItem.lastDate = DateUtils.getDateFromDatePicker(datePicker);
+            inputData.endDate = DateUtils.getDateFromDatePicker(datePicker);
         }
     };
 
     public void OK_ButtonClick(View view){
 
-        sessionItem.balance = Double.parseDouble(balanceTxt.getText().toString());
-        sessionItem.risk = Double.parseDouble(riskTxt.getText().toString());
+        inputData.balance = Double.parseDouble(balanceTxt.getText().toString());
+        inputData.risk = Double.parseDouble(riskTxt.getText().toString());
 
-        System.out.println(sessionItem.firstDate);
-        System.out.println(sessionItem.lastDate);
-        System.out.println(sessionItem.balance);
-        System.out.println(sessionItem.risk);
+        //AppResultData resultData = new App().calculate(inputData);
+
+        Intent intent = new Intent(this, ResultsActivity.class);
+        startActivity(intent);
     }
 }

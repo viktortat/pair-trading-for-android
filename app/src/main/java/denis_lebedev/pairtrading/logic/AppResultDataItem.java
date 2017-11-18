@@ -25,25 +25,22 @@ SOFTWARE.
 package denis_lebedev.pairtrading.logic;
 
 
-import java.util.List;
+public class AppResultDataItem {
 
-public class App {
+    public final double weight;
+    public final String name;
+    public final double tradeVolume;
 
-    private StockDataDownloader downloader;
-
-    public App(){
-        downloader = new GoogleFinanceDownloader();
+    public AppResultDataItem(FinancialPair pair){
+        name = pair.getName();
+        tradeVolume = pair.TradeVolume;
+        weight = pair.Weight;
     }
 
-    public AppResultData calculate(AppInputData data){
-
-        List<Stock> stocks = downloader.downloadAll(data.symbols, data.startDate, data.endDate);
-
-        List<FinancialPair> financialPairs = FinancialPair.createMany(stocks);
-
-        RiskManager rm = new RiskManager(financialPairs, data.balance);
-        rm.calculate();
-
-        return new AppResultData(financialPairs);
+    ///test
+    public AppResultDataItem(String name, double tradeVolume){
+        this.name = name;
+        this.tradeVolume = tradeVolume;
+        this.weight = 0;
     }
 }
