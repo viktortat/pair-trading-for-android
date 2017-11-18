@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText balanceTxt;
     private EditText riskTxt;
+    private Button startDateButton;
+    private Button endDateButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
         balanceTxt = (EditText)findViewById(R.id.balanceTxt);
         riskTxt = (EditText)findViewById(R.id.riskTxt);
+        startDateButton = (Button)findViewById(R.id.setStartDate);
+        endDateButton = (Button)findViewById(R.id.setEndDate);
     }
 
     public void startButton_OnClick(View view){
@@ -79,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
             inputData.startDate = DateUtils.getDateFromDatePicker(datePicker);
+            startDateButton.setText(inputData.startDate.toString());
         }
     };
 
@@ -96,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
             inputData.endDate = DateUtils.getDateFromDatePicker(datePicker);
+            endDateButton.setText(inputData.endDate.toString());
         }
     };
 

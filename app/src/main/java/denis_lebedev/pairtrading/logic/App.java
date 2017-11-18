@@ -32,15 +32,32 @@ public class App {
 
     private StockDataDownloader downloader;
     private ArrayList<FinancialPair> financialPairs;
+    private AppInputData appInputData;
 
     public static final App current = new App();
 
     public App(){
         downloader = new GoogleFinanceDownloader();
+        appInputData = readAppInputData();
+        if(appInputData == null){
+            appInputData = getDefaultAppInputData();
+        }
     }
 
     public ArrayList<FinancialPair> getFinancialPairs(){
         return financialPairs;
+    }
+
+    public AppInputData getAppInputData(){
+        return appInputData;
+    }
+
+    private AppInputData readAppInputData(){
+        return null;
+    }
+
+    private AppInputData getDefaultAppInputData(){
+        return null;
     }
 
     public void calculate(AppInputData data){
@@ -51,5 +68,9 @@ public class App {
 
         RiskManager rm = new RiskManager(financialPairs, data.balance);
         rm.calculate();
+    }
+
+    public void dispose(){
+
     }
 }

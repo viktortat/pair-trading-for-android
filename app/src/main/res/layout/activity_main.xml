@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="FIRST DATE"
-                android:id="@+id/setFirstDate"
+                android:id="@+id/setStartDate"
                 android:layout_column="2"
                 android:onClick="setFirstDate"/>
 
@@ -59,7 +59,7 @@
 
             <Button
                 android:text="LAST DATE"
-                android:id="@+id/setLastDate"
+                android:id="@+id/setEndDate"
                 android:layout_column="2"
                 android:onClick="setLastDate"/>
         </TableRow>
