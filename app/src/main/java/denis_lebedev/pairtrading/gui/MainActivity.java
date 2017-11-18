@@ -37,7 +37,6 @@ import java.util.Calendar;
 import denis_lebedev.pairtrading.R;
 import denis_lebedev.pairtrading.logic.App;
 import denis_lebedev.pairtrading.logic.AppInputData;
-import denis_lebedev.pairtrading.logic.AppResultData;
 import denis_lebedev.pairtrading.logic.DateUtils;
 
 public class MainActivity extends AppCompatActivity {
@@ -105,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         inputData.balance = Double.parseDouble(balanceTxt.getText().toString());
         inputData.risk = Double.parseDouble(riskTxt.getText().toString());
 
-        //AppResultData resultData = new App().calculate(inputData);
+        App.current.calculate(inputData);
 
         Intent intent = new Intent(this, ResultsActivity.class);
         startActivity(intent);

@@ -34,13 +34,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import denis_lebedev.pairtrading.R;
-import denis_lebedev.pairtrading.logic.AppResultDataItem;
+import denis_lebedev.pairtrading.logic.FinancialPair;
 
 
-public class CustomResultDataAdapter extends ArrayAdapter<AppResultDataItem> {
+public class CustomResultDataAdapter extends ArrayAdapter<FinancialPair> {
 
-    public CustomResultDataAdapter(Context context, ArrayList<AppResultDataItem> users) {
-        super(context, 0, users);
+    public CustomResultDataAdapter(Context context, ArrayList<FinancialPair> pairs) {
+        super(context, 0, pairs);
     }
 
     @Override
@@ -52,14 +52,14 @@ public class CustomResultDataAdapter extends ArrayAdapter<AppResultDataItem> {
         }
 
         // Get the data item for this position
-        AppResultDataItem user = getItem(position);
+        FinancialPair pair = getItem(position);
 
         // Lookup view for data population
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
         TextView tvHome = (TextView) convertView.findViewById(R.id.trade_volume);
         // Populate the data into the template view using the data object
-        tvName.setText(user.name);
-        tvHome.setText(String.valueOf(user.tradeVolume));
+        tvName.setText(pair.getName());
+        tvHome.setText(String.valueOf(pair.TradeVolume));
         // Return the completed view to render on screen
         return convertView;
     }

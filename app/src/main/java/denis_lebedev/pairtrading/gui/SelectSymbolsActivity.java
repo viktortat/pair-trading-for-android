@@ -26,6 +26,7 @@ package denis_lebedev.pairtrading.gui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -55,6 +56,16 @@ public class SelectSymbolsActivity extends AppCompatActivity {
         selectedSymbols.read(getPath());
 
         symbolText = (EditText)findViewById(R.id.symbolText);
+        symbolText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if( keyCode == KeyEvent.KEYCODE_ENTER ) {
+                    addSymbol();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         listView = (ListView)findViewById(R.id.symbolsList);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -81,9 +92,13 @@ public class SelectSymbolsActivity extends AppCompatActivity {
     }
 
     public void addButtonClick(View view){
+        addSymbol();
+    }
+
+    private void addSymbol(){
         String symbol = symbolText.getText().toString();
 
-        if(!symbol.equals("")){
+        if(symbol.equals("")){
             return;
         }
 

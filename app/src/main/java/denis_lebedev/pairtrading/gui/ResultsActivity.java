@@ -31,8 +31,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import denis_lebedev.pairtrading.R;
-import denis_lebedev.pairtrading.logic.AppResultData;
-import denis_lebedev.pairtrading.logic.AppResultDataItem;
+import denis_lebedev.pairtrading.logic.App;
+import denis_lebedev.pairtrading.logic.FinancialPair;
 
 public class ResultsActivity extends AppCompatActivity {
 
@@ -40,21 +40,11 @@ public class ResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-        populateUsersList();
+        populateList(App.current.getFinancialPairs());
     }
 
-    private void populateUsersList() {
-        // Construct the data source
-        ArrayList<AppResultDataItem> arrayOfUsers = new ArrayList<>();
-
-        arrayOfUsers.add(new AppResultDataItem("TEST1", 100000.00));
-        arrayOfUsers.add(new AppResultDataItem("TEST2", 999777.56));
-        arrayOfUsers.add(new AppResultDataItem("TEST3", 666.66));
-
-
-        // Create the adapter to convert the array to views
-        CustomResultDataAdapter adapter = new CustomResultDataAdapter(this, arrayOfUsers);
-        // Attach the adapter to a ListView
+    private void populateList(ArrayList<FinancialPair> pairs) {
+        CustomResultDataAdapter adapter = new CustomResultDataAdapter(this, pairs);
         ListView listView = (ListView) findViewById(R.id.lvResults);
         listView.setAdapter(adapter);
     }

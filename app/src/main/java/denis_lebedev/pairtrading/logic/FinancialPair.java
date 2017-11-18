@@ -80,9 +80,9 @@ public class FinancialPair {
         }
     }
 
-    public static List<FinancialPair> createMany(List<Stock> stocks) {
+    public static ArrayList<FinancialPair> createMany(List<Stock> stocks) {
 
-        List<FinancialPair> pairs = new ArrayList<FinancialPair>();
+        ArrayList<FinancialPair> pairs = new ArrayList<FinancialPair>();
 
         for (int i = 0; i < stocks.size(); i++)
         {

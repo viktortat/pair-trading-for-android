@@ -25,25 +25,31 @@ SOFTWARE.
 package denis_lebedev.pairtrading.logic;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class App {
 
     private StockDataDownloader downloader;
+    private ArrayList<FinancialPair> financialPairs;
+
+    public static final App current = new App();
 
     public App(){
         downloader = new GoogleFinanceDownloader();
     }
 
-    public AppResultData calculate(AppInputData data){
+    public ArrayList<FinancialPair> getFinancialPairs(){
+        return financialPairs;
+    }
+
+    public void calculate(AppInputData data){
 
         List<Stock> stocks = downloader.downloadAll(data.symbols, data.startDate, data.endDate);
 
-        List<FinancialPair> financialPairs = FinancialPair.createMany(stocks);
+        financialPairs = FinancialPair.createMany(stocks);
 
         RiskManager rm = new RiskManager(financialPairs, data.balance);
         rm.calculate();
-
-        return new AppResultData(financialPairs);
     }
 }

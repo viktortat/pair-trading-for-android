@@ -16,7 +16,12 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:text="GOOG" />
+        android:text="GOOG"
+        android:lines="1"
+        android:longClickable="true"
+        android:maxLines="1"
+        android:minLines="1"
+        android:singleLine="true" />
 
     <Button
         android:layout_width="wrap_content"
