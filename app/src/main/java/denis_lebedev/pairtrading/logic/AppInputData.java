@@ -24,12 +24,48 @@ SOFTWARE.
 
 package denis_lebedev.pairtrading.logic;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AppInputData {
-    public String[] symbols;
+    public ArrayList<String> symbols;
     public Calendar startDate;
     public Calendar endDate;
     public double balance;
     public double risk;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!AppInputData.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+
+        final AppInputData data = (AppInputData)obj;
+
+        if(symbols.size() != data.symbols.size()){
+            return false;
+        }
+
+        for(int i = 0; i < symbols.size(); i++){
+            if(!symbols.get(i).equals(data.symbols.get(i))){
+                return false;
+            }
+        }
+
+        if(balance != data.balance || risk != data.risk ||
+                !startDate.equals(data.startDate) ||
+                !endDate.equals(data.endDate)){
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

@@ -49,8 +49,9 @@ public class Stock implements Cloneable {
     }
 
     public double[] getPrices(){
+
         double[] prices = new double[quotes.size()];
-        for(int i = 0; i > prices.length; i++){
+        for(int i = 0; i < prices.length; i++){
             prices[i] = quotes.get(i).getPrice();
         }
         return prices;

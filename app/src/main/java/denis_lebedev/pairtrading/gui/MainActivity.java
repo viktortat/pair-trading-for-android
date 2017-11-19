@@ -37,17 +37,15 @@ import java.util.Calendar;
 
 import denis_lebedev.pairtrading.R;
 import denis_lebedev.pairtrading.logic.App;
-import denis_lebedev.pairtrading.logic.AppInputData;
 import denis_lebedev.pairtrading.logic.DateUtils;
 
 public class MainActivity extends AppCompatActivity {
-
-    private AppInputData inputData = new AppInputData();
 
     private EditText balanceTxt;
     private EditText riskTxt;
     private Button startDateButton;
     private Button endDateButton;
+    private App app = App.current;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +56,9 @@ public class MainActivity extends AppCompatActivity {
         riskTxt = (EditText)findViewById(R.id.riskTxt);
         startDateButton = (Button)findViewById(R.id.setStartDate);
         endDateButton = (Button)findViewById(R.id.setEndDate);
-    }
 
-    public void startButton_OnClick(View view){
-
+        startDateButton.setText(App.current.getInput().startDate.getTime().toString());
+        endDateButton.setText(App.current.getInput().endDate.getTime().toString());
     }
 
     public void startSelectSymbols(View view){
@@ -69,49 +66,41 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void createDatePickerDialog(DatePickerDialog.OnDateSetListener listener){
+        Calendar c = Calendar.getInstance();
+        new DatePickerDialog(this, listener,
+                c.get(Calendar.YEAR),
+                c.get(Calendar.MONTH),
+                c.get(Calendar.DAY_OF_MONTH))
+                .show();
+    }
 
     public void setFirstDate(View view){
-        Calendar c = Calendar.getInstance();
-
-        new DatePickerDialog(this, firstDateListener,
-                c.get(Calendar.YEAR),
-                c.get(Calendar.MONTH),
-                c.get(Calendar.DAY_OF_MONTH))
-                .show();
+        createDatePickerDialog(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                app.getInput().startDate = DateUtils.getDateFromDatePicker(datePicker);
+                startDateButton.setText(app.getInput().startDate.getTime().toString());
+            }
+        });
     }
-
-    DatePickerDialog.OnDateSetListener firstDateListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-            inputData.startDate = DateUtils.getDateFromDatePicker(datePicker);
-            startDateButton.setText(inputData.startDate.toString());
-        }
-    };
 
     public void setLastDate(View view){
-        Calendar c = Calendar.getInstance();
-
-        new DatePickerDialog(this, lastDateListener,
-                c.get(Calendar.YEAR),
-                c.get(Calendar.MONTH),
-                c.get(Calendar.DAY_OF_MONTH))
-                .show();
+        createDatePickerDialog(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                app.getInput().endDate = DateUtils.getDateFromDatePicker(datePicker);
+                endDateButton.setText(app.getInput().endDate.getTime().toString());
+            }
+        });
     }
-
-    DatePickerDialog.OnDateSetListener lastDateListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-            inputData.endDate = DateUtils.getDateFromDatePicker(datePicker);
-            endDateButton.setText(inputData.endDate.toString());
-        }
-    };
 
     public void OK_ButtonClick(View view){
 
-        inputData.balance = Double.parseDouble(balanceTxt.getText().toString());
-        inputData.risk = Double.parseDouble(riskTxt.getText().toString());
+        app.getInput().balance = Double.parseDouble(balanceTxt.getText().toString());
+        app.getInput().risk = Double.parseDouble(riskTxt.getText().toString());
 
-        App.current.calculate(inputData);
+        app.calculate();
 
         Intent intent = new Intent(this, ResultsActivity.class);
         startActivity(intent);

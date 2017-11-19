@@ -30,5 +30,5 @@ import java.util.Calendar;
 
 interface StockDataDownloader {
     ArrayList<Quote> download(String symbol, Calendar startDate, Calendar endDate);
-    ArrayList<Stock> downloadAll(String[] symbols, Calendar startDate, Calendar endDate);
+    ArrayList<Stock> downloadAll(ArrayList<String> symbols, Calendar startDate, Calendar endDate);
 }

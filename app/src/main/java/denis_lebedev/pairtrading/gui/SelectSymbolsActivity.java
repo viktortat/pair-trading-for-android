@@ -46,14 +46,12 @@ public class SelectSymbolsActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private EditText symbolText;
     private ListView listView;
-    private SelectedSymbols selectedSymbols = new SelectedSymbols();
+    private App app = App.current;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_symbols);
-
-        selectedSymbols.read(getPath());
 
         symbolText = (EditText)findViewById(R.id.symbolText);
         symbolText.setOnKeyListener(new View.OnKeyListener() {
@@ -76,19 +74,8 @@ public class SelectSymbolsActivity extends AppCompatActivity {
             }
         });
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
-                selectedSymbols.getSymbols());
+                app.getInput().symbols);
         listView.setAdapter(adapter);
-    }
-
-    private String getPath(){
-        String path = "/symbols.dat";
-        return this.getApplicationContext().getFilesDir().getPath() + path;
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        selectedSymbols.save(getPath());
     }
 
     public void addButtonClick(View view){

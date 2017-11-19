@@ -25,6 +25,8 @@ SOFTWARE.
 package denis_lebedev.pairtrading.logic;
 
 
+import android.os.StrictMode;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
@@ -39,7 +41,9 @@ import java.util.Locale;
 public class GoogleFinanceDownloader implements StockDataDownloader {
 
     public GoogleFinanceDownloader(){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
+        StrictMode.setThreadPolicy(policy);
     }
 
     @Override
@@ -54,11 +58,12 @@ public class GoogleFinanceDownloader implements StockDataDownloader {
     }
 
     @Override
-    public ArrayList<Stock> downloadAll(String[] symbols, Calendar startDate, Calendar endDate) {
+    public ArrayList<Stock> downloadAll(ArrayList<String> symbols, Calendar startDate, Calendar endDate) {
         ArrayList<Stock> stocks = new ArrayList<>();
         for(String symbol : symbols){
             ArrayList<Quote> quotes = download(symbol, startDate, endDate);
             Stock stock = new Stock();
+            stock.setName(symbol);
             stock.setQuotes(quotes);
             stocks.add(stock);
         }

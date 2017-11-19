@@ -89,7 +89,6 @@ public class MathUtils {
         result.b1 = b1;
         result.rValue = r_value;
         result.rSquared = r_squared;
-
         return result;
     }
 }

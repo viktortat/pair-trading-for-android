@@ -59,7 +59,7 @@ public class CustomResultDataAdapter extends ArrayAdapter<FinancialPair> {
         TextView tvHome = (TextView) convertView.findViewById(R.id.trade_volume);
         // Populate the data into the template view using the data object
         tvName.setText(pair.getName());
-        tvHome.setText(String.valueOf(pair.TradeVolume));
+        tvHome.setText(String.valueOf(pair.Regression.b1));
         // Return the completed view to render on screen
         return convertView;
     }

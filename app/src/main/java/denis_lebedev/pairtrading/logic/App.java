@@ -25,22 +25,26 @@ SOFTWARE.
 package denis_lebedev.pairtrading.logic;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class App {
 
     private StockDataDownloader downloader;
+    private AppInputData input;
+    private AppInputData inputTemp;
     private ArrayList<FinancialPair> financialPairs;
-    private AppInputData appInputData;
 
     public static final App current = new App();
 
     public App(){
         downloader = new GoogleFinanceDownloader();
-        appInputData = readAppInputData();
-        if(appInputData == null){
-            appInputData = getDefaultAppInputData();
+        input = readAppInputData();
+        if(input == null){
+            input = getDefaultAppInputData();
         }
     }
 
@@ -48,8 +52,8 @@ public class App {
         return financialPairs;
     }
 
-    public AppInputData getAppInputData(){
-        return appInputData;
+    public AppInputData getInput(){
+        return input;
     }
 
     private AppInputData readAppInputData(){
@@ -57,16 +61,30 @@ public class App {
     }
 
     private AppInputData getDefaultAppInputData(){
-        return null;
+
+        AppInputData defaultData = new AppInputData();
+        defaultData.balance = 100000.00;
+        defaultData.risk = 0.25;
+        defaultData.symbols = new ArrayList<>();
+        defaultData.symbols.add("IBM");
+        defaultData.symbols.add("MSFT");
+        defaultData.symbols.add("GOOG");
+
+        defaultData.endDate = Calendar.getInstance();
+
+        defaultData.startDate = Calendar.getInstance();
+        defaultData.startDate.add(Calendar.MONTH, -1);
+
+        return defaultData;
     }
 
-    public void calculate(AppInputData data){
+    public void calculate(){
 
-        List<Stock> stocks = downloader.downloadAll(data.symbols, data.startDate, data.endDate);
+        List<Stock> stocks = downloader.downloadAll(input.symbols, input.startDate, input.endDate);
 
         financialPairs = FinancialPair.createMany(stocks);
 
-        RiskManager rm = new RiskManager(financialPairs, data.balance);
+        RiskManager rm = new RiskManager(financialPairs, input.balance);
         rm.calculate();
     }
 
