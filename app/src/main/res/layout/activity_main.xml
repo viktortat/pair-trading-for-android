@@ -13,7 +13,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:text="CHOOSE STOCK SYMBOLS"
+                android:text="SELECT STOCK SYMBOLS"
                 android:id="@+id/chooseSymbolsButton"
                 android:layout_column="1"
                 android:layout_span="2"
@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="FIRST DATE"
+                android:text="START DATE"
                 android:id="@+id/textView3"
                 android:layout_column="1"
                 android:textColor="#ffffff"
@@ -37,7 +37,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="FIRST DATE"
+                android:text="START DATE"
                 android:id="@+id/setStartDate"
                 android:layout_column="2"
                 android:onClick="setFirstDate"/>
@@ -52,13 +52,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="LAST DATE"
+                android:text="END DATE"
                 android:id="@+id/textView4"
                 android:layout_column="1"
                 android:textColor="#ffffff" />
 
             <Button
-                android:text="LAST DATE"
+                android:text="END DATE"
                 android:id="@+id/setEndDate"
                 android:layout_column="2"
                 android:onClick="setLastDate"/>
@@ -83,7 +83,7 @@
                 android:ems="10"
                 android:id="@+id/balanceTxt"
                 android:layout_column="2"
-                android:text="10000.00"
+                android:text=""
                 android:textColor="#ffffff" />
 
         </TableRow>
@@ -106,7 +106,7 @@
                 android:ems="10"
                 android:id="@+id/riskTxt"
                 android:layout_column="2"
-                android:text="0.25"
+                android:text=""
                 android:textColor="#ffffff" />
 
         </TableRow>

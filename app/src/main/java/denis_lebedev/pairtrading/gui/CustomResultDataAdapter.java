@@ -31,6 +31,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import denis_lebedev.pairtrading.R;
@@ -46,21 +47,18 @@ public class CustomResultDataAdapter extends ArrayAdapter<FinancialPair> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.result_data_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_result_item, parent, false);
         }
 
-        // Get the data item for this position
         FinancialPair pair = getItem(position);
 
-        // Lookup view for data population
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
         TextView tvHome = (TextView) convertView.findViewById(R.id.trade_volume);
-        // Populate the data into the template view using the data object
+
+        DecimalFormat df = new DecimalFormat(".####");
         tvName.setText(pair.getName());
-        tvHome.setText(String.valueOf(pair.Regression.b1));
-        // Return the completed view to render on screen
+        tvHome.setText(String.valueOf(df.format(pair.Regression.b1)));
         return convertView;
     }
 }

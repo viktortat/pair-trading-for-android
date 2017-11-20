@@ -25,11 +25,9 @@ SOFTWARE.
 package denis_lebedev.pairtrading.logic;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class App {
 

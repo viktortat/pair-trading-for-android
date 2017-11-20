@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         startDateButton = (Button)findViewById(R.id.setStartDate);
         endDateButton = (Button)findViewById(R.id.setEndDate);
 
+        balanceTxt.setText(String.valueOf(app.getInput().balance));
+        riskTxt.setText((String.valueOf(app.getInput().risk)));
         startDateButton.setText(App.current.getInput().startDate.getTime().toString());
         endDateButton.setText(App.current.getInput().endDate.getTime().toString());
     }
