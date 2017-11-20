@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class GoogleFinanceDownloader implements StockDataDownloader {
+public class GoogleFinanceDownloader implements StockDataProvider {
 
     public GoogleFinanceDownloader(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

@@ -31,7 +31,7 @@ import java.util.List;
 
 public class App {
 
-    private StockDataDownloader downloader;
+    private StockDataProvider downloader;
     private AppInputData input;
     private AppInputData inputTemp;
     private ArrayList<FinancialPair> financialPairs;
@@ -58,11 +58,17 @@ public class App {
         return null;
     }
 
+    private void saveAppInputData() throws Exception {
+        throw new Exception();
+    }
+
     private AppInputData getDefaultAppInputData(){
 
         AppInputData defaultData = new AppInputData();
+
         defaultData.balance = 100000.00;
         defaultData.risk = 0.25;
+
         defaultData.symbols = new ArrayList<>();
         defaultData.symbols.add("IBM");
         defaultData.symbols.add("MSFT");

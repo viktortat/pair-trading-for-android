@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
-interface StockDataDownloader {
+interface StockDataProvider {
     ArrayList<Quote> download(String symbol, Calendar startDate, Calendar endDate);
     ArrayList<Stock> downloadAll(ArrayList<String> symbols, Calendar startDate, Calendar endDate);
 }
