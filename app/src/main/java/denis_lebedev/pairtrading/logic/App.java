@@ -31,7 +31,7 @@ import java.util.List;
 
 public class App {
 
-    private StockDataProvider downloader;
+    private StockDataProvider dataProvider;
     private AppInputData input;
     private AppInputData inputTemp;
     private ArrayList<FinancialPair> financialPairs;
@@ -39,7 +39,7 @@ public class App {
     public static final App current = new App();
 
     public App(){
-        downloader = new GoogleFinanceDownloader();
+        dataProvider = new GoogleFinanceDownloader();
         input = readAppInputData();
         if(input == null){
             input = getDefaultAppInputData();
@@ -79,12 +79,14 @@ public class App {
         defaultData.startDate = Calendar.getInstance();
         defaultData.startDate.add(Calendar.MONTH, -1);
 
+        defaultData.RValueRange = new RValueRange(0.65, 1);
+
         return defaultData;
     }
 
     public void calculate(){
 
-        List<Stock> stocks = downloader.downloadAll(input.symbols, input.startDate, input.endDate);
+        List<Stock> stocks = dataProvider.downloadAll(input.symbols, input.startDate, input.endDate);
 
         ArrayList<FinancialPair> pairs = FinancialPair.createMany(stocks);
 
