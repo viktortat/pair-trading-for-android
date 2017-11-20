@@ -80,10 +80,30 @@ public class App {
 
         List<Stock> stocks = downloader.downloadAll(input.symbols, input.startDate, input.endDate);
 
-        financialPairs = FinancialPair.createMany(stocks);
+        ArrayList<FinancialPair> pairs = FinancialPair.createMany(stocks);
 
-        RiskManager rm = new RiskManager(financialPairs, input.balance);
+        pairs = filterPairs(pairs, input.RValueRange);
+
+        RiskManager rm = new RiskManager(pairs, input.balance);
         rm.calculate();
+
+        financialPairs = pairs;
+    }
+
+    private ArrayList<FinancialPair> filterPairs(ArrayList<FinancialPair> pairs, RValueRange range){
+
+        ArrayList<FinancialPair> result = new ArrayList<>();
+
+        for(int i = 0; i < pairs.size(); i++){
+
+            FinancialPair pair = pairs.get(i);
+            double rValue = pair.Regression.rValue;
+
+            if(range.isInRange(rValue)){
+                result.add(pair);
+            }
+        }
+        return result;
     }
 
     public void dispose(){

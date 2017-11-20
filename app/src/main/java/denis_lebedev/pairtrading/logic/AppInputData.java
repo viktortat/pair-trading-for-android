@@ -33,6 +33,7 @@ public class AppInputData {
     public Calendar endDate;
     public double balance;
     public double risk;
+    public RValueRange RValueRange;
 
     @Override
     public boolean equals(Object obj) {
@@ -68,4 +69,5 @@ public class AppInputData {
     public int hashCode() {
         return super.hashCode();
     }
+
 }
