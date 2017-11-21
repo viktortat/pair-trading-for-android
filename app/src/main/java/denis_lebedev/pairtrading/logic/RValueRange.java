@@ -35,15 +35,22 @@ public class RValueRange {
             throw new IllegalArgumentException("min > max");
         }
 
-        if(!isCorrect(min) || !isCorrect(max)){
-            throw new IllegalArgumentException("min or max is not in 0..1 range");
-        }
+        isCorrect(min, max);
 
         setMin(min);
         setMax(min);
     }
 
-    public boolean isCorrect(double value){
+    private void isCorrect(double min, double max){
+        if(!isCorrect(min)){
+            throw new IllegalArgumentException("min is not in 0..1 range");
+        }
+        if(!isCorrect(max)){
+            throw new IllegalArgumentException("max is not in 0..1 range");
+        }
+    }
+
+    private boolean isCorrect(double value){
         return value >= 0 && value <= 1;
     }
 
