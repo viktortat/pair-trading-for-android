@@ -24,6 +24,14 @@ SOFTWARE.
 
 package denis_lebedev.pairtrading.logic;
 
+
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -34,6 +42,29 @@ public class AppInputData {
     public double balance;
     public double risk;
     public RValueRange RValueRange;
+
+    public static AppInputData read() {
+        AppInputData result = null;
+        String fileName = "input.dat";
+        try (FileReader reader = new FileReader(fileName)) {
+            JsonReader jsonReader = new JsonReader(reader);
+            result = new Gson().fromJson(jsonReader, AppInputData.class);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return result;
+    }
+
+    public static void save(AppInputData data){
+        String fileName = "input.dat";
+        Gson gson = new Gson();
+
+        try (FileWriter writer = new FileWriter(fileName)){
+            gson.toJson(data, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public boolean equals(Object obj) {
