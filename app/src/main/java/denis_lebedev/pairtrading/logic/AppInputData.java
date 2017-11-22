@@ -28,7 +28,6 @@ package denis_lebedev.pairtrading.logic;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -36,6 +35,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AppInputData {
+
+    private static final String FILENAME = "input.dat";
+
     public ArrayList<String> symbols;
     public Calendar startDate;
     public Calendar endDate;
@@ -45,8 +47,7 @@ public class AppInputData {
 
     public static AppInputData read() {
         AppInputData result = null;
-        String fileName = "input.dat";
-        try (FileReader reader = new FileReader(fileName)) {
+        try (FileReader reader = new FileReader(FILENAME)) {
             JsonReader jsonReader = new JsonReader(reader);
             result = new Gson().fromJson(jsonReader, AppInputData.class);
         } catch (IOException e1) {
@@ -56,10 +57,8 @@ public class AppInputData {
     }
 
     public static void save(AppInputData data){
-        String fileName = "input.dat";
         Gson gson = new Gson();
-
-        try (FileWriter writer = new FileWriter(fileName)){
+        try (FileWriter writer = new FileWriter(FILENAME)){
             gson.toJson(data, writer);
         } catch (IOException e) {
             e.printStackTrace();
